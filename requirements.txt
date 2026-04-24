@@ -1,0 +1,6 @@
+#This project uses Python standard libraries.
+No external dependencies are required for the prototype.
+datatime
+json
+csv
+os 
