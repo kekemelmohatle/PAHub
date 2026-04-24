@@ -1,0 +1,1 @@
+# Ignore runtime files  database.json   contacts.csv    campaign.csv        # Ignore Python cache  __pycache__/  *.pyc
