@@ -1,5 +1,5 @@
 ---
-title: pahub
+title: PAHub
 emoji: :rocket:
 colorFrom: blue
 colorTo: green
@@ -8,7 +8,6 @@ sdk_version: 4.31.0
 app_file: app.py
 pinned: false
 ---
-
 1.Project title and overview
 -**Title:** PAHub: AI-Powered CRM & Marketing Hub
 -**Discription:** A modular Python application designed to provide free, accessible marketing tools for small businesses. it combines a Customer Relationship Management (CRM) system with a dynamic AI Marketing Engine.
