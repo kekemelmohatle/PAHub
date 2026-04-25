@@ -4,3 +4,13 @@ datatime
 json
 csv
 os 
+fastapi
+uvicorn
+gradio==4.36.1
+pydantic
+requests
+transformers
+diffusers
+torch
+accelerate
+pillow
