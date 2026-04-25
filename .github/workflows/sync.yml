@@ -12,5 +12,4 @@ sync:
       fetch-depth: 0
     - name: Push to Hub
       env:
-HF_TOKEN: $ {{ secrets.FH_TOKEN }}
-     run: git push --force https://Kekemel:$HF_TOKEN@huggingface.co/spaces/Kekemel/PAHub main
+HF_TOKEN: $ {{ secrets.FH_TOKEN }} run: git push --force https://Kekemel:$HF_TOKEN@huggingface.co/spaces/Kekemel/PAHub main
