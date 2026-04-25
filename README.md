@@ -1,15 +1,13 @@
 ---
-Title: PAHub
+title: PAHub
 emoji: :rocket:
 colorFrom: blue
 colorTo: green
-sdk_version: 4.0.0
+sdk: gradio
+sdk_version: 4.31.0
 app_file: app.py
 pinned: false
 ---
-
-#PAHub
-This is my AI-powered marketing platform...
 
 1.Project title and overview
 -**Title:** PAHub: AI-Powered CRM & Marketing Hub
