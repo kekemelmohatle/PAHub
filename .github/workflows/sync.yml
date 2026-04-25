@@ -12,5 +12,5 @@ jobs:
        fetch-depth: 0
     - name: Push to Hub
       env:
-        HF_TOKEN: ${{ secrets.HF_TOKEN }}
-      run: git push --force https://Kekemelmohatle:$HF_TOKEN@huggingface.co/spaces/Kekemelmohatle/PAHub main
+       HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      run: git push --force https://Kekemel:$HF_TOKEN@huggingface.co/spaces/Kekemel/PAHub main
