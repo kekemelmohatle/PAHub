@@ -1,16 +1,22 @@
 name: Sync to Hugging Face Hub
+
 on:
   push:
-    branches: [main] 
+    branches:
+      - main
   workflow_dispatch:
+
 jobs:
- sync:    
+  sync:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-      with:
-       fetch-depth: 0
-    - name: Push to Hub
-      env:
-       HF_TOKEN: ${{ secrets.HF_TOKEN }}
-      run: git push --force https://Kekemel:$HF_TOKEN@huggingface.co/spaces/Kekemel/PAHub main
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Push to Hugging Face Hub
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          git push --force https://Kekemel:${HF_TOKEN}@huggingface.co/spaces/Kekemel/PAHub main
