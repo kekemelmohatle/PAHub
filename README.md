@@ -1,5 +1,5 @@
 ---
-title: PAHub
+Title: PAHub
 emoji: :rocket:
 colorFrom: blue
 colorTo: green
