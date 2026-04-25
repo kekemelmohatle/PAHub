@@ -1,10 +1,10 @@
 ---
 title: PAHub
-emoji: :rocket:
+emoji: rocket
 colorFrom: blue
 colorTo: green
 sdk: gradio
-sdk_version: 4.31.0
+sdk_version: 4.31.6
 app_file: app.py
 pinned: false
 ---
