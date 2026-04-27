@@ -1,11 +1,12 @@
-title:	PAHub
-emoji:	rocket
-colorFrom:	blue
-colorTo:	green
-sdk:	gradio
-sdk_version:	4.31.6
+title: PAHub
+emoji: rocket
+colorFrom: blue
+colorTo: green
+sdk: gradio
+sdk_version: 4.31.6
 app_file:	app.py
 pinned:	False
+
 1.Project title and overview -Title: PAHub: AI-Powered CRM & Marketing Hub -Discription: A modular Python application designed to provide free, accessible marketing tools for small businesses. it combines a Customer Relationship Management (CRM) system with a dynamic AI Marketing Engine.
 
 2.System Architecture -logic layer: Built with Python using a modular approach to seperate data handling fromthe user interface. -Data Layer: Uses a lightweight JSON persistence layer for CPU-effiency, allowing the app to run on standard hardware without a heavy database. -AI Engine: Adynamic prompting system that handles user-defined marketing topics.
