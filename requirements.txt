@@ -1,16 +1,13 @@
-#This project uses Python standard libraries.
-No external dependencies are required for the prototype.
-datatime
-json
-csv
-os 
-fastapi
-uvicorn
-gradio==4.36.1
-pydantic
-requests
-transformers
-diffusers
+gradio==6.13.0
+uvicorn>=0.14.0
+websockets>=10.4
+spaces
+huggingface-hub>=0.30
+datasets
+protobuf<4
+click<8.1
+pandas
+matplotlib
+scikit-learn
 torch
-accelerate
-pillow
+transformers
