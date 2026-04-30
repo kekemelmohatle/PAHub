@@ -1,18 +1,17 @@
-name: Sync to Hugging Face
+name: Sync to Hugging Face Hub
 
 on:
   push:
     branches:
       - main
-      - release/*
   workflow_dispatch:
-  
+
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4   # ✅ use v4 (latest, Node.js 24 compatible)
         with:
           fetch-depth: 0
 
@@ -20,6 +19,5 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          git config --global user.name "Kekemel"
-          git config --global user.email "kekemelmohatle@gmail.com"
-          git push --force https://$ {{ secrets.HF_TOKEN }}@huggingface.co/spaces/Kekemel/PAHub main
+          git remote add space https://Kekemel:${HF_TOKEN}@huggingface.co/spaces/Kekemel/PAHub
+          git push --force space main
