@@ -1,4 +1,4 @@
-name: Sync to Hugging Face Hub
+name: Sync to Hugging Face
 
 on:
   push:
@@ -19,4 +19,6 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          git push --force https://Kekemel:${HF_TOKEN}@huggingface.co/spaces/Kekemel/PAHub main
+          git config --global user.name "Kekemel"
+          git config --global user.email "kekemelmohatle@gmail.com"
+          git push --force https://$ {{ secrets.HF_TOKEN }}@huggingface.co/spaces/Kekemel/PAHub main
