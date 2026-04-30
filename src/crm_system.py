@@ -30,8 +30,14 @@ class CRMSystem:
             "name": name,
             "email": email,
             "company": company,
+            "industry": None,
             "date_added": str(datetime.now().date())
         }
+        if company:
+            for comp in self.data["companies"]:
+                if comp["name"].lower() == company.lower():
+                    contact["industry"] = comp["industry"]
+                    break
         self.data["contacts"].append(contact)
         self._sync()
         return f"Added {name} to CRM."
@@ -45,7 +51,7 @@ class CRMSystem:
         }
         self.data["companies"].append(company)
         self._sync()
-        return f"Company {name} added."
+        return f"Company {name} in {industry} added."
 
     def save_deal(self, contact_id, stage, value):
         deal = {
@@ -81,7 +87,6 @@ class CRMSystem:
         self._sync()
 
     def process_scheduled_campaigns(self):
-        """Send any scheduled campaigns whose time has passed."""
         now = datetime.now()
         for campaign in self.data["campaigns"]:
             if campaign["status"] == "Scheduled" and campaign["scheduled_date"]:
@@ -94,3 +99,46 @@ class CRMSystem:
                     self.data["analytics"]["emails_sent"] += 1
         self._sync()
         return "Processed scheduled campaigns."
+
+
+# --- Enhancements added on top of your existing CRMSystem code ---
+class CRMSystem(CRMSystem):
+    """
+    Extended CRMSystem with helper methods, metadata, and enriched analytics.
+    """
+
+    field_info = {
+        "name": "Enter the full name of the contact (e.g., John Doe).",
+        "email": "Provide a valid email address (e.g., john@example.com).",
+        "company": "Optional: Add the company this contact belongs to.",
+        "cname": "Enter the official company name.",
+        "industry": "Specify the industry (e.g., Retail, Finance, Healthcare).",
+        "cid": "Provide the numeric ID of the contact linked to this deal.",
+        "stage": "Enter the deal stage (e.g., Prospect, Negotiation, Closed).",
+        "value": "Enter the deal value (e.g., 5000).",
+        "topic": "Enter the subject or theme of the campaign.",
+        "days": "Enter the number of days from today to schedule the campaign.",
+    }
+
+    def get_contact_by_id(self, contact_id: int):
+        for contact in self.data["contacts"]:
+            if contact["id"] == contact_id:
+                return contact
+        return None
+
+    def get_company_by_name(self, name: str):
+        for company in self.data["companies"]:
+            if company["name"].lower() == name.lower():
+                return company
+        return None
+
+    def analytics_summary(self):
+        return {
+            "Total Campaigns": self.data["analytics"]["total_campaigns"],
+            "Immediate Campaigns": self.data["analytics"]["immediate_campaigns"],
+            "Scheduled Campaigns": self.data["analytics"]["scheduled_campaigns"],
+            "Emails Sent": self.data["analytics"]["emails_sent"],
+            "Total Contacts": len(self.data["contacts"]),
+            "Total Companies": len(self.data["companies"]),
+            "Total Deals": len(self.data["deals"]),
+        }
