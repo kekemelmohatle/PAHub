@@ -5,6 +5,31 @@ from datetime import datetime, timedelta
 
 hub = CRMSystem()
 
+# ✅ Custom CSS for logo background + gradient overlays
+custom_css = """
+body {
+    background: url('assets/logo.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Default container overlay (transparent so other sections show logo directly) */
+.gradio-container {
+    background-color: rgba(0,0,0,0.0);
+    color: #ffffff;
+}
+
+/* Gradient overlay only for Dashboard + Analytics sections */
+.dashboard-overlay, .analytics-overlay {
+    background: linear-gradient(
+        rgba(0, 0, 128, 0.7),   /* deep blue with 70% transparency */
+        rgba(0, 128, 0, 0.7)    /* green with 70% transparency */
+    );
+    border-radius: 8px;
+    padding: 15px;
+    color: #ffffff;
+}
+"""
+
 def add_contact(name, email, company=""):
     return hub.save_contact(name, email, company)
 
@@ -42,7 +67,7 @@ def process_scheduled():
 def view_analytics():
     return hub.analytics_summary()
 
-with gr.Blocks() as demo:
+with gr.Blocks(css=custom_css) as demo:
     gr.Markdown("# 🏢 PAHub – AI CRM & Marketing Hub")
     gr.Markdown("Welcome to PAHub. Use the sidebar to navigate between sections.")
 
@@ -65,8 +90,7 @@ with gr.Blocks() as demo:
         with gr.Column(scale=4):
             content = gr.Group()
 
-            # ✅ Updated Dashboard section
-            with gr.Column(visible=True) as dashboard_section:
+            with gr.Column(visible=True, elem_classes=["dashboard-overlay"]) as dashboard_section:
                 gr.Markdown("### 📊 Dashboard Overview")
                 gr.Markdown("""
                 PAHub is a tool made for **small businesses**.  
@@ -78,7 +102,6 @@ with gr.Blocks() as demo:
                 - Anyone who needs a simple system to manage customers and business growth  
                 """)
 
-                # Disclaimer (plain text, no white box)
                 gr.HTML("""
                 <div style="margin-top:20px; font-size:14px; color:#111827;">
                     <strong>Disclaimer:</strong>
@@ -94,26 +117,12 @@ with gr.Blocks() as demo:
                 btn_contact = gr.Button("Add Contact")
                 btn_contact.click(add_contact, [name, email, company], out_contact)
 
-                gr.HTML("""
-                <div style="margin-top:20px; font-size:14px; color:#111827;">
-                    <strong>Disclaimer:</strong>
-                    <em>[NOTICE: This content is AI suggested. Review for accuracy before use.]</em>
-                </div>
-                """)
-
             with gr.Column(visible=False) as companies_section:
                 cname = gr.Textbox(label="Company Name", info=hub.field_info["cname"])
                 industry = gr.Textbox(label="Industry", info=hub.field_info["industry"])
                 out_company = gr.Textbox(label="Result")
                 btn_company = gr.Button("Add Company")
                 btn_company.click(add_company, [cname, industry], out_company)
-
-                gr.HTML("""
-                <div style="margin-top:20px; font-size:14px; color:#111827;">
-                    <strong>Disclaimer:</strong>
-                    <em>[NOTICE: This content is AI suggested. Review for accuracy before use.]</em>
-                </div>
-                """)
 
             with gr.Column(visible=False) as deals_section:
                 cid = gr.Textbox(label="Contact ID", info=hub.field_info["cid"])
@@ -122,13 +131,6 @@ with gr.Blocks() as demo:
                 out_deal = gr.Textbox(label="Result")
                 btn_deal = gr.Button("Add Deal")
                 btn_deal.click(add_deal, [cid, stage, value], out_deal)
-
-                gr.HTML("""
-                <div style="margin-top:20px; font-size:14px; color:#111827;">
-                    <strong>Disclaimer:</strong>
-                    <em>[NOTICE: This content is AI suggested. Review for accuracy before use.]</em>
-                </div>
-                """)
 
             with gr.Column(visible=False) as campaigns_section:
                 topic = gr.Textbox(label="Campaign Topic", info=hub.field_info["topic"])
@@ -147,24 +149,11 @@ with gr.Blocks() as demo:
                 btn_process = gr.Button("Process Scheduled Campaigns")
                 btn_process.click(process_scheduled, None, None)
 
-                gr.HTML("""
-                <div style="margin-top:20px; font-size:14px; color:#111827;">
-                    <strong>Disclaimer:</strong>
-                    <em>[NOTICE: This content is AI suggested. Review for accuracy before use.]</em>
-                </div>
-                """)
-
-            with gr.Column(visible=False) as analytics_section:
+        
+            with gr.Column(visible=False, elem_classes=["analytics-overlay"]) as analytics_section:
                 out_analytics = gr.JSON(label="Analytics Dashboard")
                 btn_analytics = gr.Button("View Analytics")
                 btn_analytics.click(view_analytics, None, out_analytics)
-
-                gr.HTML("""
-                <div style="margin-top:20px; font-size:14px; color:#111827;">
-                    <strong>Disclaimer:</strong>
-                    <em>[NOTICE: This content is AI suggested. Review for accuracy before use.]</em>
-                </div>
-                """)
 
     def show_section(choice):
         return {
@@ -178,5 +167,4 @@ with gr.Blocks() as demo:
 
     nav.change(show_section, nav, [dashboard_section, contacts_section, companies_section, deals_section, campaigns_section, analytics_section])
 
-# ✅ Correct Gradio 6.x launch syntax
 demo.launch(theme=gr.themes.Base(primary_hue="blue", secondary_hue="green"))
